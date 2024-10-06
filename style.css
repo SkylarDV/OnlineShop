@@ -52,3 +52,8 @@ form a {
   text-decoration: none;
   font-weight: bold;
 }
+
+.check {
+  margin-left: -140px;
+  margin-right: -130px;
+}
