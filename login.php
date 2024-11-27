@@ -2,7 +2,6 @@
     include_once("User.php");
     function canLogIn($user, $password) {
         $all = User::getAll();
-        var_dump($all);
         foreach ($all as $u) {
             if (isset($u['email']) && $u['email'] === $user) {
                 $hash = $u["password"];
