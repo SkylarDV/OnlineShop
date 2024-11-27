@@ -1,9 +1,19 @@
 <?php
+    include_once("User.php");
     function canLogIn($user, $password) {
-        if ($user === "jenaam@shop.com" && $password === "12345isnotsecure") {
-            return true;
+        $all = User::getAll();
+        var_dump($all);
+        foreach ($all as $u) {
+            if (isset($u['email']) && $u['email'] === $user) {
+                $hash = $u["password"];
+                if(password_verify($password, $hash)) {
+                    return true;
+                }
+                else {return false;}
+            }
+            else {return false;}
         }
-        else {return false;}
+        
     }
 
     if (!empty($_POST)){
@@ -40,7 +50,7 @@
 <body>
     <?php include_once("nav.php"); ?>
 
-    <form action="" method="post">
+    <form class="login" action="" method="post">
         <label for="email">Email Address</label>
         <br>
         <input type="text" name="email" id="email">
