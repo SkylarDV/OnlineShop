@@ -1,8 +1,4 @@
 <?php 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
     include_once(__DIR__."/Item.php");
     include_once(__DIR__."/Review.php");
     include_once(__DIR__."/User.php");
@@ -16,6 +12,11 @@ error_reporting(E_ALL);
     
     $product = Item::getByID($ID);
     $reviews = Review::getByProduct($ID);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
+        Item::deleteItem($ID);
+        header("Location:index.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +36,13 @@ error_reporting(E_ALL);
             <p> <?php echo $product["description"] ?></p>
         </div>
     <?php endforeach; ?>
+
+    <?php if (User::checkIfAdmin($_SESSION["email"])) {
+    echo '<form method="POST">
+        <button type="submit" name="delete_item">Delete Item</button>
+    </form>';
+    } 
+    ?>
 
     <div class="reviewMsgs"></div>  
         <?php foreach($reviews as $review): ?>

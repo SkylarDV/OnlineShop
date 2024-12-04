@@ -124,5 +124,12 @@
             $product = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $product;
         }
+
+        public static function deleteItem(int $ID) {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("DELETE FROM products WHERE ID=:ID");
+            $statement->bindValue(":ID", $ID);
+            $statement->execute();
+        }
     }
 ?>
