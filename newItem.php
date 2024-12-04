@@ -80,6 +80,7 @@
         <br>
 
         <input type="submit" value="Create Product" class="btn">
+        <a href="index.php">Go back to all products</a>
     </form>
 </body>
 </html>
