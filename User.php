@@ -19,11 +19,13 @@ class User
 
     public function setEmail(string $email): void
     {
-        // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        //     throw new InvalidArgumentException("Invalid email format.");
-        // }
+        $existingEmail = self::getByEmail($email);
+        if ($existingEmail !== null) {
+            throw new Exception("The email address is already in use.");
+        }
         $this->email = $email;
     }
+
 
     // Getter and setter for Password
     public function getPassword(): string

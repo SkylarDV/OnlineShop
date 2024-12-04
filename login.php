@@ -13,6 +13,7 @@
         }
         return false; 
     }
+    
 
     if (!empty($_POST)){
         $user = $_POST["email"];

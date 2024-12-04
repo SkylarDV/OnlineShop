@@ -1,6 +1,4 @@
 <?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
     include_once(__DIR__ . "/User.php"); 
 
     session_start();
@@ -27,12 +25,14 @@ error_reporting(E_ALL);
                     throw new InvalidArgumentException("Passwords do not match!");
                 }
                 $user->save();
+                header("Location: index.php");
+                exit();
 
-            } catch (InvalidArgumentException $e) {
+            } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
         } else {
-            $error = "You must agree to the Terms of Service";
+            $e = "You must agree to the Terms of Service";
         }
     }
 ?>
@@ -47,10 +47,6 @@ error_reporting(E_ALL);
 </head>
 <body>
     <?php include_once("nav.php"); ?>
-
-    <?php if(isset($error)): ?>
-        <div class="font-bold text-red-500"><?php echo $error ?></div>
-    <?php endif; ?>
 
     <form action="" method="post">
         <label for="email">Email Address</label>
@@ -84,6 +80,12 @@ error_reporting(E_ALL);
 
         <input class="check" type="checkbox" name="tos">
         <label class="label" for="tos">I agree with the Terms of Service and the Privacy Policy.</label>
+
+        <br>
+
+        <?php if(isset($error)): ?>
+            <div class="font-bold text-red-500"><?php echo $e ?></div>
+        <?php endif; ?>
 
         <br>
 
