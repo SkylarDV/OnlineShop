@@ -121,7 +121,7 @@
             $statement = $conn->prepare("SELECT * FROM products WHERE ID=:ID");
             $statement->bindValue(":ID", $ID);
             $statement->execute();
-            $product = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $product = $statement->fetch(PDO::FETCH_ASSOC);
             return $product;
         }
 
@@ -130,6 +130,30 @@
             $statement = $conn->prepare("DELETE FROM products WHERE ID=:ID");
             $statement->bindValue(":ID", $ID);
             $statement->execute();
+        }
+
+        public function update($ID){
+            $conn = Db::getConnection();
+
+            $query = $conn->prepare("UPDATE products SET title = :name, price = :price, description = :desc, img = :img, category = :category, subcategory = :subcategory WHERE ID = :ID;");
+            $name = $this->getName();
+            $price = $this->getPrice();
+            $desc = $this->getDescription();
+            $img = $this->getImage();
+            $category = $this->getCategory();
+            $subcategory = $this->getSubcategory();
+
+            $query->bindValue(":ID", $ID);
+            $query->bindValue(":name", $name);
+            $query->bindValue(":price", $price);
+            $query->bindValue(":desc", $desc);
+            $query->bindValue(":img", $img);
+            $query->bindValue(":category", $category);  
+            $query->bindValue(":subcategory", $subcategory);  
+
+
+            $result = $query->execute();
+            return $result;
         }
     }
 ?>

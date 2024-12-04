@@ -13,6 +13,10 @@
     $product = Item::getByID($ID);
     $reviews = Review::getByProduct($ID);
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_item'])) {
+        header("Location:editItem.php?id=$ID");
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
         Item::deleteItem($ID);
         header("Location:index.php");
@@ -28,17 +32,21 @@
 </head>
 <body>
     <?php include_once("nav.php"); ?>
-    <?php foreach($product as $product): ?>
+  
         <div>
             <h2> <?php echo $product["title"] ?></h2>
             <img src="<?php echo $product["img"] ?>" alt="">
             <h3> <?php echo "€ ".$product["price"] ?> </h3>
             <p> <?php echo $product["description"] ?></p>
         </div>
-    <?php endforeach; ?>
+  
 
     <?php if (User::checkIfAdmin($_SESSION["email"])) {
     echo '<form method="POST">
+        <button type="submit" name="edit_item">Edit Item</button>
+    </form> 
+    <br> 
+    <form method="POST">
         <button type="submit" name="delete_item">Delete Item</button>
     </form>';
     } 

@@ -4,7 +4,7 @@
         header("Location: login.php");
     }
 
-    include_once("User.php");
+    include_once(__DIR__."/User.php");
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $nPassword = $_POST["new_password"];
@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <?php include_once(__DIR__."nav.php"); ?>
+    <?php include_once("nav.php"); ?>
 
     <form method="POST" action="">
         <h2>Change password</h2>

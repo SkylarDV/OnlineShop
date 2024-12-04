@@ -29,8 +29,7 @@
 </style>
 
 <?php 
-include_once(__DIR__."/User.php");
-session_start(); 
+include_once(__DIR__."/User.php"); 
 ?>
 
 <nav class="navbar">
