@@ -28,6 +28,11 @@
     }
 </style>
 
+<?php 
+include_once(__DIR__."/User.php");
+session_start(); 
+?>
+
 <nav class="navbar">
     <?php if (isset($_SESSION["email"])): ?>
         <img src="https://i.pinimg.com/736x/ce/72/97/ce72974ce9966a891c2a363b397b1037.jpg"  alt="">
@@ -37,5 +42,12 @@
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7mMNz8YCBvYmnr3BQUPX__YsC_WtDuAevwg&s" alt="">
         <h3 class="user">GUEST</h3>
     <?php endif; ?>
+
+    <br>
+
+    <?php if (User::checkIfAdmin($_SESSION["email"])) {
+    echo '<a href="newItem.php">Add Item</a>';
+    } 
+    ?>
 </nav>
 
