@@ -5,14 +5,13 @@
         foreach ($all as $u) {
             if (isset($u['email']) && $u['email'] === $user) {
                 $hash = $u["password"];
-                if(password_verify($password, $hash)) {
+                if (password_verify($password, $hash)) {
                     return true;
                 }
-                else {return false;}
+                return false; 
             }
-            else {return false;}
         }
-        
+        return false; 
     }
 
     if (!empty($_POST)){

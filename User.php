@@ -116,7 +116,7 @@ class User
         $query->bindValue(":email", $email);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
-        return $result["ID"]; 
+        return $result ? $result["ID"] : null;
     }
         
 }
