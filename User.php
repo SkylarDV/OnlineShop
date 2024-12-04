@@ -3,7 +3,6 @@
 
 class User
 {   
-
     private string $email;
     private string $password;
     private string $username;
@@ -124,7 +123,16 @@ class User
         $query->bindValue(":password", $password);
         $query->execute();
     }
-        
+    
+    public static function checkIfAdmin($email) {
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT admin FROM users WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['admin'] : null;
+    }
+    
 }
 
 ?>

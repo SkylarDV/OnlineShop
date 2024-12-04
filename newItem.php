@@ -1,5 +1,12 @@
 <?php
+    session_start();
     include_once(__DIR__ . "/Item.php");
+    include_once(__DIR__."/User.php");
+
+    if(!User::checkIfAdmin($_SESSION["email"])) {
+        header("Location: index.php");
+    }
+
     if (!empty($_POST)) {
         try {$product = new Item();
         $product->setName($_POST["title"]);

@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <?php include_once("nav.php"); ?>
+    <?php include_once(__DIR__."nav.php"); ?>
 
     <form method="POST" action="">
         <h2>Change password</h2>
