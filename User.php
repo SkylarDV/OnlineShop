@@ -7,11 +7,10 @@ class User
     private string $email;
     private string $password;
     private string $username;
-    private string $pfp; // Profile picture (URL or file path)
-    private int $currency; // User's currency, assumed to be an integer
-    private bool $admin;  // User's admin status
+    private string $pfp; 
+    private int $currency; 
+    private bool $admin;  
 
-    // Getter and setter for Email
     public function getEmail(): string
     {
         return $this->email;
@@ -27,7 +26,6 @@ class User
     }
 
 
-    // Getter and setter for Password
     public function getPassword(): string
     {
         return $this->password;
@@ -38,7 +36,6 @@ class User
         $this->password = $password;
     }
 
-    // Getter and setter for Username
     public function getUsername(): string
     {
         return $this->username;
@@ -49,7 +46,6 @@ class User
         $this->username = $username;
     }
 
-    // Getter and setter for Profile Picture (PFP)
     public function getPfp(): string
     {
         return $this->pfp;
@@ -60,7 +56,6 @@ class User
         $this->pfp = $pfp;
     }
 
-    // Getter and setter for Currency
     public function getCurrency(): int
     {
         return $this->currency;
@@ -74,7 +69,6 @@ class User
         $this->currency = $currency;
     }
 
-    // Getter and setter for Admin Status
     public function getAdmin(): bool
     {
         return $this->admin;
@@ -119,6 +113,16 @@ class User
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result ? $result["ID"] : null;
+    }
+
+    public static function changePassword($email, $password) {
+        $conn = Db::getConnection();
+        $query = $conn->prepare("UPDATE users SET password = :password WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $options = ["cost" => 15,];
+        $password = password_hash($password, PASSWORD_DEFAULT, $options);
+        $query->bindValue(":password", $password);
+        $query->execute();
     }
         
 }
