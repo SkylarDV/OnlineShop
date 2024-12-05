@@ -2,6 +2,7 @@
     include_once(__DIR__."/Item.php");
     include_once(__DIR__."/Review.php");
     include_once(__DIR__."/User.php");
+    include_once(__DIR__."/Order.php");
 
     session_start();
     if (!isset($_SESSION["email"])) {
@@ -12,6 +13,10 @@
     
     $product = Item::getByID($ID);
     $reviews = Review::getByProduct($ID);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart'])) {
+        Order::addToCart($user_id, $ID);
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_item'])) {
         header("Location:editItem.php?id=$ID");
@@ -33,13 +38,17 @@
 <body>
     <?php include_once("nav.php"); ?>
   
-        <div>
-            <h2> <?php echo $product["title"] ?></h2>
-            <img src="<?php echo $product["img"] ?>" alt="">
-            <h3> <?php echo "€ ".$product["price"] ?> </h3>
-            <p> <?php echo $product["description"] ?></p>
-        </div>
-  
+    <div>
+        <h2> <?php echo $product["title"] ?></h2>
+        <img src="<?php echo $product["img"] ?>" alt="">
+        <h3> <?php echo "€ ".$product["price"] ?> </h3>
+        <p> <?php echo $product["description"] ?></p>
+    </div>
+
+    <form method="POST">
+        <button type="submit" name="cart">Add to cart</button>
+    </form> 
+
 
     <?php if (User::checkIfAdmin($_SESSION["email"])) {
     echo '<form method="POST">

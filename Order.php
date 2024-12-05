@@ -49,7 +49,34 @@
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC); 
         }
+
+        public static function getOrders(int $user) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT `product-orders`.product_id FROM `product-orders` JOIN orders ON `product-orders`.order_id = orders.ID WHERE orders.status = 'complete' AND orders.user_id = :user");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC); 
+        }
         
+        public static function addToCart(int $user, int $item) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT ID FROM orders WHERE status = 'cart' AND user_id = :user");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            $order =  $query->fetch(PDO::FETCH_ASSOC); 
+
+            if (empty($order)) {
+                $query = $conn->prepare("INSERT INTO orders (user_id, time, address, status) VALUES (:user, NOW(), 'TBD', 'cart')");
+                $query->bindValue(":user", $user);
+                $query->execute();
+            } 
+
+
+            $query = $conn->prepare("INSERT INTO `product-orders` (product_id, order_id) VALUES (:item, (SELECT ID FROM orders WHERE user_id = :user AND status = 'cart' AND address = 'TBD' LIMIT 1));");
+            $query->bindValue(":user", $user);
+            $query->bindValue(":item", $item);
+            $query->execute();
+        }
     }
 
 ?>
