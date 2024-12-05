@@ -33,6 +33,8 @@
 
 <body>
     <?php include_once("nav.php"); ?>
+    
+    <h2>Your past orders</h2>
 
     <form method="POST" action="">
         <h2>Change password</h2>
