@@ -7,6 +7,11 @@
 
     $user_id = User::getByEmail($_SESSION["email"]);
     $cartItems = Order::getCart($user_id);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy']) && !empty($_POST["address"])) {
+        $address = $_POST["address"];
+        Order::buyOrder($user_id, $address);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,5 +31,12 @@
             <img src="<?php echo $product["img"] ?>" alt="">
         </a>
     <?php endforeach; ?>
+
+    <form method="POST">
+        <label for="address">Your Address</label>
+        <input type="text" name="address" id="address">
+        <br>
+        <button type="submit" name="buy">Buy these items</button>
+    </form> 
 </body>
 </html>

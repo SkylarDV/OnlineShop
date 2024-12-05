@@ -1,47 +1,6 @@
 <?php
     include_once(__DIR__."/Db.php");
    class Order {
-        private int $user_id;
-        private DateTime $time;
-        private string $address;
-        private string $status;
-    
-        // Getter and Setter for $user_id
-        public function getUserId(): int {
-            return $this->user_id;
-        }
-    
-        public function setUserId(int $user_id): void {
-            $this->user_id = $user_id;
-        }
-    
-        // Getter and Setter for $time
-        public function getTime(): DateTime  {
-            return $this->time;
-        }
-    
-        public function setTime(DateTime $time): void {
-            $this->time = $time;
-        }
-    
-        // Getter and Setter for $address
-        public function getAddress(): string {
-            return $this->address;
-        }
-    
-        public function setAddress(string $address): void {
-            $this->address = $address;
-        }
-    
-        // Getter and Setter for $status
-        public function getStatus(): string {
-            return $this->status;
-        }
-    
-        public function setStatus(string $status): void {
-            $this->status = $status;
-        }
-
         public static function getCart(int $user) {
             $conn = Db::getConnection();
             $query = $conn->prepare("SELECT `product-orders`.product_id FROM `product-orders` JOIN orders ON `product-orders`.order_id = orders.ID WHERE orders.status = 'cart' AND orders.user_id = :user");
@@ -72,9 +31,52 @@
             } 
 
 
-            $query = $conn->prepare("INSERT INTO `product-orders` (product_id, order_id) VALUES (:item, (SELECT ID FROM orders WHERE user_id = :user AND status = 'cart' AND address = 'TBD' LIMIT 1));");
+            $query = $conn->prepare("INSERT INTO `product-orders` (product_id, order_id) VALUES (:item, (SELECT ID FROM orders WHERE user_id = :user AND status = 'cart' LIMIT 1));");
             $query->bindValue(":user", $user);
             $query->bindValue(":item", $item);
+            $query->execute();
+
+            
+            $query = $conn->prepare("SELECT price FROM products WHERE ID = :item");
+            $query->bindValue(":item", $item);
+            $query->execute();
+            $price = $query->fetch(PDO::FETCH_ASSOC);
+
+            $query = $conn->prepare("UPDATE orders SET price = price + :price WHERE user_id = :user AND status = 'cart'");
+            $query->bindValue(":user", $user);
+            $query->bindValue(":price", $price["price"]);
+            $query->execute();
+        }
+
+        public static function getTotal($user) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT price FROM orders WHERE user_id = :user AND status = 'cart'");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            $result = (float)$result["price"];
+            $result = round($result, 2);
+            return $result;
+        }
+
+        public static function buyOrder(int $user, $address) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT ID FROM orders WHERE user_id = :user AND status = 'cart'");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            $order = $query->fetch(PDO::FETCH_ASSOC);
+            var_dump($order);
+            $order = $order["ID"];
+
+            $price = self::getTotal($user);
+            $query = $conn->prepare("UPDATE users SET currency = currency - :price WHERE ID = :user;");
+            $query->bindValue(":user", $user);
+            $query->bindValue(":price", $price);
+            $query->execute();
+
+            $query = $conn->prepare("UPDATE orders SET address = :address, status = 'complete' WHERE ID = :order");
+            $query->bindValue(":order", $order);
+            $query->bindValue(":address", $address);
             $query->execute();
         }
     }
