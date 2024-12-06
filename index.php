@@ -7,12 +7,19 @@
     include_once(__DIR__."/Item.php");
     $products = Item::getAll();
     $category = isset($_GET['category']) ? $_GET['category'] : null;
+    $search = isset($_GET['search']) ? $_GET['search'] : null;
+
 
     if ($category) {
         $products = array_filter($products, function($product) use ($category) {
             return $product["category"] === $category;
         });
     }
+    if ($search) {
+        $s = $_GET['search'];
+        $products = Item::searchProduct($s);
+    }
+
 ?>
 
 <!DOCTYPE html>

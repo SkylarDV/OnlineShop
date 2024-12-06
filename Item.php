@@ -118,18 +118,18 @@
 
         public static function getByID(int $ID) {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT * FROM products WHERE ID=:ID");
-            $statement->bindValue(":ID", $ID);
-            $statement->execute();
-            $product = $statement->fetch(PDO::FETCH_ASSOC);
+            $query = $conn->prepare("SELECT * FROM products WHERE ID=:ID");
+            $query->bindValue(":ID", $ID);
+            $query->execute();
+            $product = $query->fetch(PDO::FETCH_ASSOC);
             return $product;
         }
 
         public static function deleteItem(int $ID) {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("DELETE FROM products WHERE ID=:ID");
-            $statement->bindValue(":ID", $ID);
-            $statement->execute();
+            $query = $conn->prepare("DELETE FROM products WHERE ID=:ID");
+            $query->bindValue(":ID", $ID);
+            $query->execute();
         }
 
         public function update($ID){
@@ -154,6 +154,15 @@
 
             $result = $query->execute();
             return $result;
+        }
+
+        public static function searchProduct($search) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT * FROM products WHERE title LIKE :search OR description LIKE :search;");
+            $searchPattern = '%' . $search . '%';
+            $query->bindValue(":search", $searchPattern);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 ?>

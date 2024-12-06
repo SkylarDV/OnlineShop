@@ -26,8 +26,6 @@
         Item::deleteItem($ID);
         header("Location:index.php");
     }
-
-    var_dump(Review::checkIfBought($user_id, $ID));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,16 +50,15 @@
     </form> 
 
 
-    <?php if (User::checkIfAdmin($_SESSION["email"])) {
-    echo '<form method="POST">
-        <button type="submit" name="edit_item">Edit Item</button>
-    </form> 
-    <br> 
-    <form method="POST">
-        <button type="submit" name="delete_item">Delete Item</button>
-    </form>';
-    } 
-    ?>
+    <?php if (User::checkIfAdmin($_SESSION["email"])):?>
+        <form method="POST">
+            <button type="submit" name="edit_item">Edit Item</button>
+        </form> 
+        <br> 
+        <form method="POST">
+            <button type="submit" name="delete_item">Delete Item</button>
+        </form>;
+    <?php endif;?>
 
     <div class="reviewMsgs"></div>  
         <?php foreach($reviews as $review): ?>
@@ -72,46 +69,44 @@
         <?php endforeach;?>
     </div> 
     
-    <?php if (Review::checkIfBought($user_id, $ID))
-    echo
-    '<form action="" method="POST">
-        <h2>It seems you bought this product in the past</h2>
-        <p>Mind telling us your opinion?</p>
-        <label for="score">Your rating of this product out of five</label>
-        <br>
-        
-        <div class="labels">
-            <label for="star1">1</label>
-            <label for="star2">2</label>
-            <label for="star3">3</label>
-            <label for="star4">4</label>
-            <label for="star5">5</label>
-        </div>
-        
+    <?php if (Review::checkIfBought($user_id, $ID)): ?>
+        <form action="" method="POST">
+            <h2>It seems you bought this product in the past</h2>
+            <p>Mind telling us your opinion?</p>
+            <label for="score">Your rating of this product out of five</label>
+            <br>
+            
+            <div class="labels">
+                <label for="star1">1</label>
+                <label for="star2">2</label>
+                <label for="star3">3</label>
+                <label for="star4">4</label>
+                <label for="star5">5</label>
+            </div>
+            
 
-        <br>
+            <br>
 
-        <div class="radio">
-            <input type="radio" id="star1" name="rating" value="1" required>
-            <input type="radio" id="star2" name="rating" value="2">
-            <input type="radio" id="star3" name="rating" value="3">
-            <input type="radio" id="star4" name="rating" value="4">
-            <input type="radio" id="star5" name="rating" value="5">
-        </div>
-        
+            <div class="radio">
+                <input type="radio" id="star1" name="rating" value="1" required>
+                <input type="radio" id="star2" name="rating" value="2">
+                <input type="radio" id="star3" name="rating" value="3">
+                <input type="radio" id="star4" name="rating" value="4">
+                <input type="radio" id="star5" name="rating" value="5">
+            </div>
+            
 
-        <br>
+            <br>
 
-        <label for="text">Your Review</label>
-        <br>
-        <input type="text" name="text" id="commentText" size="100">
+            <label for="text">Your Review</label>
+            <br>
+            <input type="text" name="text" id="commentText" size="100">
 
-        <br>
+            <br>
 
-        <input type="button" id="btnAddReview" data-user_id="<?php echo $user_id ?>" data-product_id="<?php echo $ID ?>" value="Post Review" class="btn">
-    </form>'
-
-    ?>
+            <input type="button" id="btnAddReview" data-user_id="<?php echo $user_id ?>" data-product_id="<?php echo $ID ?>" value="Post Review" class="btn">
+        </form>
+    <?php endif; ?>
 
     <script src="reviews.js"></script>
 
