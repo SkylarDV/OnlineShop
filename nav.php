@@ -30,11 +30,13 @@
 
 <?php 
     include_once(__DIR__."/User.php");
+    ob_start();  // Start output buffering
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
-        $search = urlencode($_POST['search']); // URL-encode the input to ensure it's safe for a query string
+        $search = urlencode($_POST['search']);
         header("Location: index.php?search=$search");
-        exit;
+        exit;  // Ensure no further code is executed
     }
+    ob_end_flush();
 ?>
 
 <nav class="navbar">
