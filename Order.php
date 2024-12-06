@@ -65,10 +65,22 @@
             $query->bindValue(":user", $user);
             $query->execute();
             $order = $query->fetch(PDO::FETCH_ASSOC);
-            var_dump($order);
             $order = $order["ID"];
 
             $price = self::getTotal($user);
+
+            // Fetch the user's current currency
+            $query = $conn->prepare("SELECT currency FROM users WHERE ID = :user");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            $userData = $query->fetch(PDO::FETCH_ASSOC);
+            $currentCurrency = $userData['currency'];
+
+            // Check if the user has enough currency
+            if ($currentCurrency < $price) {
+                throw new Exception("Insufficient funds to complete the purchase.");
+            }
+
             $query = $conn->prepare("UPDATE users SET currency = currency - :price WHERE ID = :user;");
             $query->bindValue(":user", $user);
             $query->bindValue(":price", $price);

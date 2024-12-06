@@ -10,7 +10,11 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy']) && !empty($_POST["address"])) {
         $address = $_POST["address"];
-        Order::buyOrder($user_id, $address);
+        try {
+            Order::buyOrder($user_id, $address);
+        } catch (Exception $e) {
+            echo $e->getMessage(); // Handle the error appropriately
+        }
     }
 ?>
 
@@ -24,6 +28,7 @@
 </head>
 <body>
     <h2>Shopping cart</h2>
+    <h3><?php echo Order::getTotal($user_id) ?></h3>
     <?php foreach($cartItems as $item): ?>
         <?php $product = Item::getByID($item['product_id']); ?>
         <a href="product.php?id=<?php echo $product["ID"]; ?>">
