@@ -30,13 +30,6 @@
 
 <?php 
     include_once(__DIR__."/User.php");
-    ob_start();  // Start output buffering
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
-        $search = urlencode($_POST['search']);
-        header("Location: index.php?search=$search");
-        exit;  // Ensure no further code is executed
-    }
-    ob_end_flush();
 ?>
 
 <nav class="navbar">
@@ -44,9 +37,6 @@
         <img src="https://i.pinimg.com/736x/ce/72/97/ce72974ce9966a891c2a363b397b1037.jpg"  alt="">
         <h3 class="user"><a href="profile.php"><?php echo $_SESSION["email"]; ?></a></h3>
         <a href="cart.php"><img src="https://cdn-icons-png.flaticon.com/512/4585/4585350.png" alt=""></a>
-        <form action="" method="POST">
-            <input type="text" name="search" id="search" size="100" placeholder="Use 1 word for most effective searching">
-        </form>
         <?php if (User::checkIfAdmin($_SESSION["email"])): ?>
             <a href="newItem.php">Add Item</a>
         <?php endif; ?>

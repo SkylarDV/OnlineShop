@@ -7,6 +7,11 @@
     include_once(__DIR__."/Item.php");
     $products = Item::getAll();
     $category = isset($_GET['category']) ? $_GET['category'] : null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
+        $search = urlencode($_POST['search']);
+        header("Location: index.php?search=$search");  
+    }
     $search = isset($_GET['search']) ? $_GET['search'] : null;
 
 
@@ -34,6 +39,10 @@
     <?php include_once("nav.php"); ?>
     <h1>Webshop XD</h1>
     <?php echo "Welcome " . htmlspecialchars($_SESSION["email"]); // htmlspecialchars because of the @ in the email ?>
+    
+    <form action="" method="POST">
+            <input type="text" name="search" id="search" size="100" placeholder="Use 1 word for most effective searching">
+    </form>
     
     <div class="categories">
         <a href="?">All Categories</a>
