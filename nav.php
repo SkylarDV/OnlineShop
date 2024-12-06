@@ -33,7 +33,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
         $search = urlencode($_POST['search']); // URL-encode the input to ensure it's safe for a query string
         header("Location: index.php?search=$search");
-        exit();
+        exit;
     }
 ?>
 
