@@ -74,5 +74,17 @@ class Review {
 
         return $query->fetchAll(PDO::FETCH_ASSOC); 
     }
+
+    public static function checkIfBought($user, $product) {
+        $conn = Db::getConnection();
+
+        $query = $conn->prepare("SELECT `product-orders`.`product_id` FROM `product-orders` JOIN `orders` ON `product-orders`.`order_id` = `orders`.`id` WHERE `orders`.`user_id` = :user AND `orders`.`status` = 'complete'");
+        $query->bindParam(":user", $user);
+        $query->execute();
+        $products = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $productIds = array_column($products, 'product_id');
+        return in_array($product, $productIds);
+    }
 }
 ?>

@@ -26,6 +26,8 @@
         Item::deleteItem($ID);
         header("Location:index.php");
     }
+
+    var_dump(Review::checkIfBought($user_id, $ID));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,8 +71,12 @@
             </div>
         <?php endforeach;?>
     </div> 
-
-    <form action="" method="POST">
+    
+    <?php if (Review::checkIfBought($user_id, $ID))
+    echo
+    '<form action="" method="POST">
+        <h2>It seems you bought this product in the past</h2>
+        <p>Mind telling us your opinion?</p>
         <label for="score">Your rating of this product out of five</label>
         <br>
         
@@ -98,12 +104,14 @@
 
         <label for="text">Your Review</label>
         <br>
-        <input type="text" name="text" id="commentText" size="200">
+        <input type="text" name="text" id="commentText" size="100">
 
         <br>
 
         <input type="button" id="btnAddReview" data-user_id="<?php echo $user_id ?>" data-product_id="<?php echo $ID ?>" value="Post Review" class="btn">
-    </form>
+    </form>'
+
+    ?>
 
     <script src="reviews.js"></script>
 
