@@ -7,6 +7,8 @@
     include_once(__DIR__."/Item.php");
     $products = Item::getAll();
     $category = isset($_GET['category']) ? $_GET['category'] : null;
+    $subcategory = isset($_GET['subcategory']) ? $_GET['subcategory'] : null;
+
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
         $search = urlencode($_POST['search']);
@@ -20,6 +22,12 @@
             return $product["category"] === $category;
         });
     }
+    if ($subcategory) {
+        $products = array_filter($products, function($product) use ($subcategory) {
+            return $product["subcategory"] === $subcategory;
+        });
+    }
+
     if ($search) {
         $s = $_GET['search'];
         $products = Item::searchProduct($s);
@@ -62,6 +70,30 @@
                 -
                 <a href="?category=Goodies">Goodies</a>
             </div>
+            <?php if ($category == "Figurines"): ?>
+                <div class="subcategories">
+                    <a href="?category=Figurines">All Figurines</a>
+                    -
+                    <a href="?category=Figurines&subcategory=Manga">Manga Figurines</a>
+                    -
+                    <a href="?category=Figurines&subcategory=TV%20Shows">TV Show Figurines</a>
+                </div>
+            <?php endif ?>
+            <?php if ($category == "Food And Drinks"): ?>
+                <div class="subcategories">
+                    <a href="?category=Food%20And%20Drinks">All Food & Drinks</a>
+                    -
+                    <a href="?category=Food%20And%20Drinks&subcategory=Asian">Asian</a>
+                    -
+                    <a href="?category=Food%20And%20Drinks&subcategory=Drink">Drink</a>
+                    -
+                    <a href="?category=Food%20And%20Drinks&subcategory=Salty">Salty</a>
+                    -
+                    <a href="?category=Food%20And%20Drinks&subcategory=Sweet">Sweet</a>
+                    -
+                    <a href="?category=Food%20And%20Drinks&subcategory=USA">USA</a>
+                </div>
+            <?php endif ?>
         </div>
    
         

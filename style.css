@@ -267,6 +267,11 @@ nav .newItem {
   color: var(--red);
 }
 
+.indexPage .subcategories a {
+  text-decoration: none;
+  color: var(--red);
+}
+
 .productlist {
   display: flex;
   flex-direction: row;

@@ -23,7 +23,7 @@ document.querySelector("#btnAddReview").addEventListener("click", function(e){
         let newReview = document.createElement('div');
         let r = document.createElement('h2');
         let t = document.createElement('p');
-        r.innerHTML = result.rating;
+        r.innerHTML = result.rating + "✬";
         t.innerHTML = result.text;
 
         newReview.appendChild(r);
