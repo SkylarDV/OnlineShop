@@ -49,26 +49,37 @@
 <body>
     <?php include_once("nav.php"); ?>
 
-    <form class="login" action="" method="post">
-        <label for="email">Email Address</label>
+    <div class="loginpage">
+        
+        <form class="login" action="" method="post">
+        <h2>Log in</h2>
+        <div>
+            <label for="email">Email Address</label>
+            <input type="text" name="email" id="email">
+        </div>
+        
         <br>
-        <input type="text" name="email" id="email">
 
-        <br>
-
-        <label for="password">Password</label>
-        <br>
-        <input type="password" name="password" id="password">
-
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        
         <br>
         <?php if(isset($error)): ?> 
             <strong class="error">That combination of username and password is incorrect. Please try again.</strong>
+            <br>
         <?php endif; ?>
-        <br>
-
+        
         <input type="submit" value="Log In" class="subbtn">
         <br>
         <a href="signup.php">Don't have an account? Sign up</a>
     </form>
+
+    <div class="pic">
+        <img src="https://cdn.shopify.com/s/files/1/0274/1056/3133/files/thumbnail_IMG-20210427-WA0013-PhotoRoom_2.png?v=1666703498" alt="">
+    </div>
+    </div>
+    
 </body>
 </html>

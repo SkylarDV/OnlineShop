@@ -27,21 +27,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Shopping cart</h2>
-    <h3><?php echo Order::getTotal($user_id) ?></h3>
-    <?php foreach($cartItems as $item): ?>
-        <?php $product = Item::getByID($item['product_id']); ?>
-        <a href="product.php?id=<?php echo $product["ID"]; ?>">
-            <h2> <?php echo $product["title"] ?> <?php echo "€ ".$product["price"] ?> </h2>
-            <img src="<?php echo $product["img"] ?>" alt="">
-        </a>
-    <?php endforeach; ?>
+    <div class="cartPage">
+        <div class="top">
+            <h1>Shopping cart</h1>
+            <h3>Total cost: € <?php echo Order::getTotal($user_id) ?></h3>
+            <strong>You have € <?php echo User::getUserCurrency($user_id) ?></strong>
+        </div>
 
-    <form method="POST">
-        <label for="address">Your Address</label>
-        <input type="text" name="address" id="address">
-        <br>
-        <button type="submit" name="buy">Buy these items</button>
-    </form> 
+        <div class="productlist">
+            <?php foreach($cartItems as $item): ?>
+                <?php $product = Item::getByID($item['product_id']); ?>
+                <div class="productview">
+                    <a href="product.php?id=<?php echo $product["ID"]; ?>">
+                        <h2><?php echo $product["title"] ?></h2> 
+                        <img src="<?php echo $product["img"] ?>" alt="">
+                        <h3><?php echo "€ ".$product["price"] ?></h3>
+                    </a>
+                </div>
+                
+            <?php endforeach; ?>
+        </div>
+        
+
+        <form class="bottom" method="POST">
+            <label for="address">Your Address</label>
+            <input type="text" name="address" id="address">
+            <br>
+            <button type="submit" class="subbtn" name="buy">Buy these items</button>
+        </form> 
+    </div>
+    
 </body>
 </html>

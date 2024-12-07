@@ -37,26 +37,46 @@
 </head>
 <body>
     <?php include_once("nav.php"); ?>
-    <h1>Webshop XD</h1>
-    <?php echo "Welcome " . htmlspecialchars($_SESSION["email"]); // htmlspecialchars because of the @ in the email ?>
-    
-    <form action="" method="POST">
-            <input type="text" name="search" id="search" size="100" placeholder="Use 1 word for most effective searching">
-    </form>
-    
-    <div class="categories">
-        <a href="?">All Categories</a>
-        <a href="?category=Figurines">Figurines</a>
-        <a href="?category=Katana">Katana</a>
-        <a href="?category=Food%20And%20Drinks">Food and Drinks</a>
-        <a href="?category=Goodies">Goodies</a>
+
+    <div class="indexPage">
+
+        <div class="topText">
+            <h1>Welcome to Ichiban</h1>
+            <strong> <?php echo "We hope you enjoy your stay, " . htmlspecialchars($_SESSION["email"]); // htmlspecialchars because of the @ in the email ?></strong>
+            <p>Start by searching in the search bar or filtering by category underneath</p>
+        </div>
+
+        <div class="searching">
+            <form action="" method="POST">
+                <input type="text" name="search" id="search"  placeholder="Use 1 word for most effective searching">
+            </form>
+            <br>
+            <div class="categories">
+                <a href="?">All Categories</a>
+                -
+                <a href="?category=Figurines">Figurines</a>
+                -
+                <a href="?category=Katana">Katana</a>
+                -
+                <a href="?category=Food%20And%20Drinks">Food and Drinks</a>
+                -
+                <a href="?category=Goodies">Goodies</a>
+            </div>
+        </div>
+   
+        
+        <div class="productlist">
+            <?php foreach($products as $product): ?>
+                <div class="productview">
+                    <a href="product.php?id=<?php echo $product["ID"]; ?>">
+                        <h2><?php echo $product["title"] ?></h2> 
+                        <img src="<?php echo $product["img"] ?>" alt="">
+                        <h3> <?php echo "€ ".$product["price"] ?></h3>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
     
-    <?php foreach($products as $product): ?>
-        <a href="product.php?id=<?php echo $product["ID"]; ?>">
-            <h2> <?php echo $product["title"] ?> <?php echo "€ ".$product["price"] ?> </h2>
-            <img src="<?php echo $product["img"] ?>" alt="">
-        </a>
-    <?php endforeach; ?>
 </body>
 </html>

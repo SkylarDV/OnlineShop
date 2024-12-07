@@ -47,49 +47,63 @@
 </head>
 <body>
     <?php include_once("nav.php"); ?>
+    <div class="loginpage">
+        
+        <form class="login" action="" method="post">
+            <h2>Create an account</h2>
+            <div>
+                <label for="email">Email Address</label>
+                <input type="text" name="email" id="email">
+            </div>
+        
+            <br>
 
-    <form action="" method="post">
-        <label for="email">Email Address</label>
-        <br>
-        <input type="text" name="email" id="email">
+            <div>
+                <label for="username">Display Name</label>
+                <input type="text" name="username" id="username">
+            </div>
 
-        <br>
+            <br>
 
-        <label for="username">Display Name</label>
-        <br>
-        <input type="text" name="username" id="username">
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            
+            <br>
 
-        <br>
+            <div>
+                <label for="c_password">Confirm Password</label>
+                <input type="password" name="c_password" id="c_password">
+            </div>
+            
+            <br>
 
-        <label for="password">Password</label>
-        <br>
-        <input type="password" name="password" id="password">
+            <div class="agreements">
+                <div class="checks">
+                    <input class="check" type="checkbox" name="newsletter">
+                    <label class="label" for="newsletter">I would like to receive notifications through email about updates or discounts on the platform</label>
+                </div>
+                
+                <br>
 
-        <br>
+                <div class="checks">
+                    <input class="check" type="checkbox" name="tos">
+                    <label class="label" for="tos">I agree with the Terms of Service and the Privacy Policy.</label>
+                </div>   
+            </div>
+            
+            <br>
 
-        <label for="c_password">Confirm Password</label>
-        <br>
-        <input type="password" name="c_password" id="c_password">
+            <?php if(isset($e)): ?>
+                <div class="error"><?php echo $e ?></div>
+                <br>
+            <?php endif; ?>
 
-        <br>
+            <input class="subbtn" type="submit" value="Create Account" class="btn">
+        </form>
+    </div>
 
-        <input class="check" type="checkbox" name="newsletter">
-        <label class="label" for="newsletter">I would like to receive notifications through email about updates or discounts on the platform</label>
-
-        <br>
-
-        <input class="check" type="checkbox" name="tos">
-        <label class="label" for="tos">I agree with the Terms of Service and the Privacy Policy.</label>
-
-        <br>
-
-        <?php if(isset($error)): ?>
-            <div class="font-bold text-red-500"><?php echo $e ?></div>
-        <?php endif; ?>
-
-        <br>
-
-        <input type="submit" value="Create Account" class="btn">
-    </form>
+    
 </body>
 </html>

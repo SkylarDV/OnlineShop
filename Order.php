@@ -30,12 +30,10 @@
                 $query->execute();
             } 
 
-
             $query = $conn->prepare("INSERT INTO `product-orders` (product_id, order_id) VALUES (:item, (SELECT ID FROM orders WHERE user_id = :user AND status = 'cart' LIMIT 1));");
             $query->bindValue(":user", $user);
             $query->bindValue(":item", $item);
             $query->execute();
-
             
             $query = $conn->prepare("SELECT price FROM products WHERE ID = :item");
             $query->bindValue(":item", $item);
@@ -54,10 +52,17 @@
             $query->bindValue(":user", $user);
             $query->execute();
             $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+            // Check if cart is empty and say the total is 0 then
+            if (empty($result) || !isset($result["price"])) {
+                return 0.00; 
+            }
+        
             $result = (float)$result["price"];
             $result = round($result, 2);
             return $result;
         }
+        
 
         public static function buyOrder(int $user, $address) {
             $conn = Db::getConnection();
@@ -91,6 +96,7 @@
             $query->bindValue(":address", $address);
             $query->execute();
         }
+
     }
 
 ?>

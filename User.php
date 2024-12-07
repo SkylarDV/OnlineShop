@@ -114,6 +114,15 @@ class User
         return $result ? $result["ID"] : null;
     }
 
+    public static function getUserPfp($email) {
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT pfp FROM users WHERE email = :email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["pfp"] : null;
+    }
+
     public static function changePassword($email, $password) {
         $conn = Db::getConnection();
         $query = $conn->prepare("UPDATE users SET password = :password WHERE email = :email");
@@ -133,6 +142,16 @@ class User
         return $result ? $result['admin'] : null;
     }
     
+    public static function getUserCurrency($user){
+        $conn = Db::getConnection();
+        $query = $conn->prepare("SELECT currency FROM users WHERE ID = :user");
+        $query->bindValue(":user", $user);
+        $query->execute();
+        $money =  $query->fetch(PDO::FETCH_ASSOC); 
+        $money = $money["currency"];
+        $money =  round($money, 2);
+        return $money;
+    }
 }
 
 ?>

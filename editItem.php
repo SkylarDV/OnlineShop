@@ -34,68 +34,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form action="" method="post">
-        <label for="title">Product Name</label>
-        <br>
-        <p>Was: <?php echo $product["title"] ?></p>
-        <br>
-        <input type="text" name="title" id="title">
+    <div class="loginpage">
+        <form class="login wider" action="" method="post">
+            <h2>Edit the product</h2>
+            <div>
+                <label for="title">Product Name</label>
+                <p>Was: <?php echo $product["title"] ?></p>
+                <input type="text" name="title" id="title">
+            </div>
+        
+            <br>
 
-        <br>
+            <div>
+                <label for="price">Price</label>
+                <p>Was: <?php echo $product["price"] ?></p>
+                <input type="float" name="price" id="price">
+            </div>
+           
+            <br>
 
-        <label for="price">Price</label>
-        <br>
-        <p>Was: <?php echo $product["price"] ?></p>
-        <br>
-        <input type="float" name="price" id="price">
+            <div>
+                <label for="desc">Description</label>
+                <p>Was: <?php echo $product["description"] ?></p>
+                <input type="text" name="desc" id="desc">
+            </div>
+            
+            <br>
 
-        <br>
+            <div>
+                <label for="img">Image URL</label>
+                <p>Was: <?php echo $product["img"] ?></p>
+                <img src="<?php echo $product["img"] ?>" alt="">
+                <input type="text" name="img" id="img">
+            </div>
+            
+            <br>
 
-        <label for="desc">Description</label>
-        <br>
-        <p>Was: <?php echo $product["description"] ?></p>
-        <br>
-        <input type="text" name="desc" id="desc">
+            <div>
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="Foods and Drinks">Foods & Drinks</option>
+                    <option value="Figurines">Figurines</option>
+                    <option value="Katana">Katana</option>
+                    <option value="Goodies">Goodies</option>
+                </select>
+                <p>Was: <?php echo $product["category"] ?></p>
+            </div>
+            
+            <br>
 
-        <br>
+            <div>
+                <label for="subcategory">Subcategory</label>
+                <select name="subcategory" id="subcategory">
+                    <option value=""> </option>
+                    <option value="Asian">Asian</option>
+                    <option value="USA">USA</option>
+                    <option value="Sweet">Sweet</option>
+                    <option value="Salty">Salty</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Manga">Manga</option>
+                    <option value="TV Shows">TV Shows</option>
+                </select>
+                <p>Was: <?php echo $product["subcategory"] ?></p>
+            </div>
+            
+            <br>
 
-        <label for="img">Image URL</label>
-        <br>
-        <p>Was: <?php echo $product["img"] ?></p>
-        <br>
-        <input type="text" name="img" id="img">
-
-        <br>
-
-        <label for="category">Category</label>
-        <select name="category" id="category">
-            <option value="Foods and Drinks">Foods & Drinks</option>
-            <option value="Figurines">Figurines</option>
-            <option value="Katana">Katana</option>
-            <option value="Goodies">Goodies</option>
-        </select>
-        <p>Was: <?php echo $product["category"] ?></p>
-
-        <br>
-
-        <label for="subcategory">Subcategory</label>
-        <select name="subcategory" id="subcategory">
-            <option value=""> </option>
-            <option value="Asian">Asian</option>
-            <option value="USA">USA</option>
-            <option value="Sweet">Sweet</option>
-            <option value="Salty">Salty</option>
-            <option value="Drink">Drink</option>
-            <option value="Manga">Manga</option>
-            <option value="TV Shows">TV Shows</option>
-        </select>
-        <p>Was: <?php echo $product["subcategory"] ?></p>
-
-        <br>
-
-        <input type="submit" value="Edit Product" class="btn">
-    </form>
+            <input class="subbtn" type="submit" value="Edit Product" class="btn">
+        </form>
+    </div>
 </body>
 </html>

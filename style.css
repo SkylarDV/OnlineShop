@@ -1,5 +1,14 @@
+:root {
+  --pink: #efbaba;
+  --black: #242630;
+  --white: #f9ebeb;
+  --gray: #8a8686;
+  --red: #e20c16;
+}
+
 * {
   box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .hidden {
@@ -7,8 +16,8 @@
 }
 
 body {
-  background-color: #191970;
-  color: white;
+  background-color: var(--pink);
+  color: var(--black);
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   margin: 0;
 }
@@ -17,43 +26,421 @@ h3 {
   font-size: 20px;
 }
 
-form {
+.loginpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.login {
   margin: 20px;
-  background-color: black;
+  margin-top: 50px;
+  background-color: var(--white);
   padding: 20px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  width: 40%;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
-form input {
-  width: 300px;
+.login div input[type="text"], 
+.login div input[type="password"]  {
+  width: 100%;
+  border-color: var(--black);
+  border-width: 1px;
 }
+
+.login div  {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
 .subbtn {
-  width: 300px;
+  width: 80%;
+  background-color: var(--pink);
+  border-radius: 5px;
+  border-color: var(--white);
+  color: var(--white);
+  height: 2em;
 }
 
-strong.error { 
+.login .checks {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+}
+
+.login .agreements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.checks input {
+  height: 15px;
+  margin-right: 15px;
+}
+
+
+.error { 
   display: inline-block;
   width: 300px;
-  color: darkred;
-  border: darkred solid 1px;
+  color: var(--red);
+  border: var(--red) solid 1px;
   padding: 5px;
   border-radius: 5px;
-  background-color: lightcoral;
+  background-color: var(--pink);
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-form a {
+.login a {
   display: inline-block;
   width: 300px;
   text-align: center;
   margin-top: 10px;
-  color: gray;
+  color: var(--gray);
   text-decoration: none;
   font-weight: bold;
 }
 
-.check {
-  margin-left: -140px;
-  margin-right: -130px;
+.loginpage .wider {
+  width: 60%;
+}
+
+.wider div img {
+  object-fit: cover; 
+  object-position: top; 
+  overflow: hidden;
+  height: 5em;
+  width: 5em;
+}
+
+.pic {
+  margin: 20px;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: right;
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 20px;
+  width: 40%;
+  height: 100%;
+}
+
+.pic img {
+  width: 80%;
+  align-self: center;
+  justify-self: center;
+}
+
+nav {
+  background-color: var(--white);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  width: 100%;
+}
+
+nav .navContent {
+  display: flex; 
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .userLinks {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: left;
+  align-items: center;
+}
+
+nav .icon {
+  margin: 5px;
+  width: 30px; 
+  height: 30px;
+  display: inline-block;
+}
+
+nav .cart {
+  margin-top: 10px;
+  margin-right: 30px;
+}
+
+nav .indexRdr {
+  position: absolute;
+  left: 50%;
+  width: 50px; 
+  top: 10px;
+  height: 50px;
+  display: inline-block;
+}
+
+nav .leftNav {
+  justify-self: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+nav .loggedOut {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+nav .logout {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: auto;
+  text-decoration: none;
+  color: gray;
+}
+
+nav .user {
+  text-decoration: none;
+  color: var(--black);
+  font-weight: bold;
+}
+
+nav .newItem {
+  text-decoration: none;
+  color: var(--red);
+  font-weight: bold;
+ 
+  margin-left: 2em;
+}
+
+.indexPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.indexPage .topText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+}
+
+.indexPage .searching {
+  background-color: var(--white);
+  padding: 20px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.indexPage .searching input {
+  height: 2em;
+  width: 35em;
+}
+
+.indexPage .categories a {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--red);
+}
+
+.productlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.productlist .productview {
+  margin: 10px;
+  background-color: var(--white);
+  padding: 20px;
+  padding-bottom: 0;
+  border-radius: 20px;
+  width: 30%;
+  height: fit-content;
+}
+
+.productlist .productview a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: fit-content;
+}
+
+a img {
+  border: none;
+}
+
+.productlist .productview h2 {
+  color: var(--black);
+
+}
+
+.productlist .productview h3 {
+  display: inline-block;
+  background-color: var(--red);
+  color: var(--white);
+  padding: 5px;
+  border-radius: 5px;
+  position: relative;
+  top: -12em;
+  left: 5em;
+  border-style: solid;
+  border-color: var(--white);
+  border-width: 1.5px;
+}
+
+.productlist .productview img {
+  width: 15em;
+  height: 15em;
+  object-fit: cover; 
+  object-position: top; 
+  overflow: hidden;
+  border-style: solid;
+  border-color: var(--black);
+  border-width: 1.5px;
+}
+
+.cartPage .top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  padding: 20px;
+}
+
+.cartPage .bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.cartPage .bottom input {
+  height: 2em;
+  width: 35em;
+}
+
+.cartPage .subbtn {
+  width: 30em;
+}
+
+.productpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.productpage .productinfo {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border-radius: 20px;
+  width: 80%;
+  height: fit-content;
+  padding: 20px;
+}
+
+.productpage .productinfo img {
+  object-fit: cover; 
+  object-position: top; 
+  overflow: hidden;
+  height: 35em;
+  width: 35em;
+}
+
+.productinfo .subbtn {
+  width: 100%;
+}
+
+.productinfo .adminbtns {
+  display: flex;
+  flex: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 15em;
+}
+
+.productpage .reviewMsgs {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewMsgs .reviewMsg {
+  background-color: var(--white);
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30em;
+  border-radius: 10px;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  margin-top: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+.review input {
+  height: 2em;
+  width: 35em;
+}
+
+.review .labels {
+  display: flex;
+  flex-direction: row;
+  width: 30em;
+  justify-content: space-around;
+}
+
+.review .radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 30em;
+}
+
+.radio input {
+  height: 15px;
 }
