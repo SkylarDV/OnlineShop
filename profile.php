@@ -7,8 +7,15 @@
     include_once(__DIR__."/User.php");
     include_once(__DIR__."/Item.php");
     include_once(__DIR__."/Order.php");
+    $user_id = User::getByEmail($_SESSION["email"]);
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Add'])) {
+        User::moneyAdd($_SESSION["email"], $_POST['budget']);
+        $msg = "The money has successfully been added to your account and should be available shortly.";
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['pw'])) {
         $nPassword = $_POST["new_password"];
         $cPassword = $_POST["confirm_password"];
         
@@ -41,6 +48,23 @@
         
     <div class="cartPage">
         <div class="top">
+            <h2>Top up your wallet</h2>
+            <strong>You have € <?php echo User::getUserCurrency($user_id) ?></strong>
+            <br>
+            <form class="budget" action="" method="POST">
+                <label for="budget">Add the following amount to my wallet:</label>
+                <select name="budget" id="budget">
+                    <option value="10">€10</option>
+                    <option value="20">€20</option>
+                    <option value="50">€50</option>
+                    <option value="100">€100</option>
+                </select>      
+                <input class="budgetbtn" type="submit" name="Add" value="Add" class="btn">
+            </form>
+            <?php if(isset($msg)): ?> 
+                <strong class="error"><?php echo $msg ?></strong>
+                <br>
+            <?php endif; ?>
             <h2>Your past orders</h2> 
         </div>
         
@@ -76,7 +100,7 @@
                 <br>
             <?php endif; ?>
 
-            <button type="submit">Change Password</button>
+            <button name="pw" class="subbtn" type="submit">Change Password</button>
         </form>
     </div>
 </body>

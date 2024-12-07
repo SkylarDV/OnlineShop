@@ -342,6 +342,19 @@ a img {
   padding: 20px;
 }
 
+.cartpage .top a {
+  text-decoration: none;
+  color: var(--red);
+  font-weight: bold;
+}
+
+.cartpage .top form {
+  display: flex;
+  flex: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .cartPage .bottom {
   display: flex;
   flex-direction: column;
@@ -360,6 +373,7 @@ a img {
 .cartPage .subbtn {
   width: 30em;
 }
+
 
 .productpage {
   display: flex;
@@ -448,4 +462,13 @@ a img {
 
 .radio input {
   height: 15px;
+}
+
+.budgetbtn {
+  width: 5em;
+  background-color: var(--pink);
+  border-radius: 5px;
+  border-color: var(--white);
+  color: var(--white);
+  height: 2em;
 }

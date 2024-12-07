@@ -32,6 +32,8 @@
             <h1>Shopping cart</h1>
             <h3>Total cost: € <?php echo Order::getTotal($user_id) ?></h3>
             <strong>You have € <?php echo User::getUserCurrency($user_id) ?></strong>
+            <br>
+            <a href="profile.php">Need more budget? Top up your wallet here.</a>
         </div>
 
         <div class="productlist">

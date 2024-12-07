@@ -152,6 +152,14 @@ class User
         $money =  round($money, 2);
         return $money;
     }
+
+    public static function moneyAdd($email, $amount) {
+        $conn = Db::getConnection();
+        $query = $conn->prepare("UPDATE users SET currency = currency + :amount WHERE email = :email;");
+        $query->bindValue(":email", $email);
+        $query->bindValue(":amount", $amount);
+        $query->execute();
+    }
 }
 
 ?>
