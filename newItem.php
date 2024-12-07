@@ -7,18 +7,20 @@
         header("Location: index.php");
     }
 
-    if (!empty($_POST)) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $imgURL = Item::processImage();
+        
         try {$product = new Item();
-        $product->setName($_POST["title"]);
-        $product->setDescription($_POST["desc"]);
-        $product->setImage($_POST["img"]);
-        $product->setPrice($_POST["price"]);
-        $product->setCategory($_POST["category"]);
-        $product->setSubcategory($_POST["subcategory"]);
-        $product->save();
-        } catch (InvalidArgumentException $e) {
-            echo "Error: " . $e->getMessage();
-        }
+            $product->setName($_POST["title"]);
+            $product->setDescription($_POST["desc"]);
+            $product->setImage($imgURL);
+            $product->setPrice($_POST["price"]);
+            $product->setCategory($_POST["category"]);
+            $product->setSubcategory($_POST["subcategory"]);
+            $product->save();
+            } catch (InvalidArgumentException $e) {
+                echo "Error: " . $e->getMessage();
+            }
     }
 ?>
 
@@ -32,7 +34,7 @@
 </head>
 <body>
     <div class="loginpage">
-        <form class="login wider" action="" method="post">
+        <form class="login wider" action="" method="post" enctype="multipart/form-data">
             
             <div>
                 <label for="title">Product Name</label>
@@ -56,8 +58,8 @@
             <br>
 
             <div>
-                <label for="img">Image URL</label>
-                <input type="text" name="img" id="img">
+                <label for="img">Upload Image</label>
+                <input type="file" name="img" id="img" required>
             </div>
             
             <br>

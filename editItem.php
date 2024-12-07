@@ -12,10 +12,11 @@
 
 
     if (!empty($_POST)) {
+        $imgURL = Item::processImage();
         try {$product = new Item();
         $product->setName($_POST["title"]);
         $product->setDescription($_POST["desc"]);
-        $product->setImage($_POST["img"]);
+        $product->setImage($imgURL);
         $product->setPrice($_POST["price"]);
         $product->setCategory($_POST["category"]);
         $product->setSubcategory($_POST["subcategory"]);
@@ -38,7 +39,7 @@
 </head>
 <body>
     <div class="loginpage">
-        <form class="login wider" action="" method="post">
+        <form class="login wider" action="" method="post"  enctype="multipart/form-data">
             <h2>Edit the product</h2>
             <div>
                 <label for="title">Product Name</label>
@@ -64,11 +65,11 @@
             
             <br>
 
+
             <div>
-                <label for="img">Image URL</label>
-                <p>Was: <?php echo $product["img"] ?></p>
-                <img src="<?php echo $product["img"] ?>" alt="">
-                <input type="text" name="img" id="img">
+                <p>Was: </p> <img src="<?php echo $product["img"] ?>" alt="">
+                <label for="img">Upload Image</label>
+                <input type="file" name="img" id="img" required>
             </div>
             
             <br>

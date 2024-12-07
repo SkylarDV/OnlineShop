@@ -164,5 +164,49 @@
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public static function processImage(){
+            if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                // Define the upload directory (ensure it exists)
+                $uploadDir = 'uploads/'; // Folder inside the same directory as upload.php
+                
+                // Ensure the directory exists
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true); // Create the directory if it doesn't exist
+                }
+        
+                // Get file info
+                $fileName = basename($_FILES['img']['name']);
+                $fileTmpName = $_FILES['img']['tmp_name'];
+                $fileSize = $_FILES['img']['size'];
+                $fileError = $_FILES['img']['error'];
+                $fileType = $_FILES['img']['type'];
+        
+                // Validate file type (optional, e.g., only allow images)
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (in_array($fileType, $allowedTypes)) {
+                    // Generate a unique filename to avoid overwriting
+                    $newFileName = uniqid() . '-' . $fileName;
+        
+                    // Define the full path to move the file
+                    $uploadPath = $uploadDir . $newFileName;
+        
+                    // Move the file to the 'uploads' directory
+                    if (move_uploaded_file($fileTmpName, $uploadPath)) {
+                        // Generate the image URL (relative path)
+                        $imgURL = $uploadDir . $newFileName; // This is the URL
+        
+                        
+                    } else {
+                        echo "Error: Failed to move the uploaded file.";
+                    }
+                } else {
+                    echo "Error: Invalid file type. Only JPG, PNG, and GIF files are allowed.";
+                }
+            } else {
+                echo "Error: No file uploaded or there was an upload error.";
+            }
+            return $imgURL;
+        }
     }
 ?>
