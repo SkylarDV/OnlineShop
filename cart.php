@@ -12,9 +12,19 @@
         $address = $_POST["address"];
         try {
             Order::buyOrder($user_id, $address);
+            $msg = "Thank you for your purchase! It will be shipped to you at the soonest convenience.";
         } catch (Exception $e) {
-            echo $e->getMessage(); // Handle the error appropriately
+            echo $e->getMessage();
         }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+        Order::removeFromCart($user_id,$_POST['delete']);
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Add'])) {
+        User::moneyAdd($_SESSION["email"], $_POST['budget']);
+        $msg = "The money has successfully been added to your account and should be available shortly.";
     }
 ?>
 
@@ -33,7 +43,24 @@
             <h3>Total cost: € <?php echo Order::getTotal($user_id) ?></h3>
             <strong>You have € <?php echo User::getUserCurrency($user_id) ?></strong>
             <br>
-            <a href="profile.php">Need more budget? Top up your wallet here.</a>
+            <p>Need more budget? Top up your wallet here.</p>
+            <form class="budget" action="" method="POST">
+                <label for="budget">Add the following amount to my wallet:</label>
+                <select name="budget" id="budget">
+                    <option value="10">€10</option>
+                    <option value="20">€20</option>
+                    <option value="50">€50</option>
+                    <option value="100">€100</option>
+                </select>      
+                <input class="budgetbtn" type="submit" name="Add" value="Add" class="btn">
+            </form>
+            <?php if(isset($msg)): ?> 
+                <strong class="error"><?php echo $msg ?></strong>
+                <br>
+                <?php 
+                    header("Location: profile.php");
+                ?>
+            <?php endif; ?>
         </div>
 
         <div class="productlist">
@@ -45,6 +72,9 @@
                         <img src="<?php echo $product["img"] ?>" alt="">
                         <h3><?php echo "€ ".$product["price"] ?></h3>
                     </a>
+                    <form method="POST">
+                        <button value="<?php echo $product["ID"]?>" class="delbtn" type="submit" name="delete">Delete From Cart</button>
+                    </form> 
                 </div>
                 
             <?php endforeach; ?>

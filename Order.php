@@ -97,6 +97,30 @@
             $query->execute();
         }
 
+        public static function removeFromCart(int $user, int $item) {
+            $conn = Db::getConnection();
+            $query = $conn->prepare("SELECT ID FROM orders WHERE status = 'cart' AND user_id = :user");
+            $query->bindValue(":user", $user);
+            $query->execute();
+            $order =  $query->fetch(PDO::FETCH_ASSOC); 
+    
+    
+            $query = $conn->prepare("DELETE FROM `product-orders` WHERE id = ( SELECT id FROM ( SELECT id FROM `product-orders` WHERE product_id = :item AND order_id = (SELECT ID FROM orders WHERE user_id = :user AND status = 'cart' LIMIT 1) LIMIT 1 ) AS temp );");
+            $query->bindValue(":user", $user);
+            $query->bindValue(":item", $item);
+            $query->execute();
+            
+            $query = $conn->prepare("SELECT price FROM products WHERE ID = :item");
+            $query->bindValue(":item", $item);
+            $query->execute();
+            $price = $query->fetch(PDO::FETCH_ASSOC);
+    
+            $query = $conn->prepare("UPDATE orders SET price = price - :price WHERE user_id = :user AND status = 'cart'");
+            $query->bindValue(":user", $user);
+            $query->bindValue(":price", $price["price"]);
+            $query->execute();
+        }
     }
 
+   
 ?>

@@ -288,6 +288,10 @@ nav .newItem {
   border-radius: 20px;
   width: 30%;
   height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .productlist .productview a {
@@ -342,7 +346,7 @@ a img {
   padding: 20px;
 }
 
-.cartpage .top a {
+.cartpage .top p {
   text-decoration: none;
   color: var(--red);
   font-weight: bold;
@@ -467,6 +471,15 @@ a img {
 .budgetbtn {
   width: 5em;
   background-color: var(--pink);
+  border-radius: 5px;
+  border-color: var(--white);
+  color: var(--white);
+  height: 2em;
+}
+
+.delbtn {
+  width: 15em;
+  background-color: var(--red);
   border-radius: 5px;
   border-color: var(--white);
   color: var(--white);
