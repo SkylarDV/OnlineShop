@@ -2,10 +2,10 @@
     class Db {
         private static $conn;
         const SETTINGS = [
-            "user" => "r1003207", 
-            "password" => "e5s1b8#ZeftS", 
-            "host" => "onlinestore.mysql.database.azure.com", 
-            "db" => "onlinestore",
+            "user" => getenv("user"), 
+            "password" => getenv("password"), 
+            "host" => getenv("host"), 
+            "db" => getenv("db"),
             "ssl_ca" => __DIR__ . "/cacert.pem"
         ];
 
