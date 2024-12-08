@@ -29,7 +29,7 @@
                 exit();
 
             } catch (Exception $e) {
-                echo "Error: " . $e->getMessage();
+                $e = $e->getMessage();
             }
         } else {
             $e = "You must agree to the Terms of Service";
