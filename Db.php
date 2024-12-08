@@ -1,11 +1,18 @@
 <?php
     class Db {
         private static $conn;
+
+        private string $user = getenv("user");
+        private string $password = getenv("password");
+        private string $host = getenv("host");
+        private string $db = getenv("db");
+
+        
         const SETTINGS = [
-            "user" => getenv("user"), 
-            "password" => getenv("password"), 
-            "host" => getenv("host"), 
-            "db" => getenv("db"),
+            "user" => $user, 
+            "password" => $password, 
+            "host" => $host, 
+            "db" => $db,
             "ssl_ca" => __DIR__ . "/cacert.pem"
         ];
 
