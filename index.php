@@ -50,7 +50,7 @@
 
         <div class="topText">
             <h1>Welcome to Ichiban</h1>
-            <strong> <?php echo "We hope you enjoy your stay, " . htmlspecialchars($_SESSION["email"]); // htmlspecialchars because of the @ in the email ?></strong>
+            <strong> <?php echo "We hope you enjoy your stay, " . htmlspecialchars($_SESSION["email"]); ?></strong>
             <p>Start by searching in the search bar or filtering by category underneath</p>
         </div>
 
@@ -101,9 +101,9 @@
             <?php foreach($products as $product): ?>
                 <div class="productview">
                     <a href="product.php?id=<?php echo $product["ID"]; ?>">
-                        <h2><?php echo $product["title"] ?></h2> 
-                        <img src="<?php echo $product["img"] ?>" alt="">
-                        <h3> <?php echo "€ ".$product["price"] ?></h3>
+                        <h2><?php echo htmlspecialchars($product["title"])  ?></h2> 
+                        <img src="<?php echo htmlspecialchars( $product["img"]) ?>" alt="">
+                        <h3> <?php echo "€ ".htmlspecialchars($product["price"])  ?></h3>
                     </a>
                 </div>
             <?php endforeach; ?>

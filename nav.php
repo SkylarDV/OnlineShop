@@ -17,7 +17,8 @@
         <div class="navContent">
             <div class="userLinks">
                 <img class="icon" src="<?php echo User::getUserPfp($_SESSION["email"])?>"  alt="">
-                <h3><a class="user" href="profile.php"><?php echo $_SESSION["email"]; ?></a></h3>                <?php if (User::checkIfAdmin($_SESSION["email"])): ?>
+                <h3><a class="user" href="profile.php"><?php echo htmlspecialchars( $_SESSION["email"]); ?></a></h3>                
+                <?php if (User::checkIfAdmin($_SESSION["email"])): ?>
                     <a class="newItem" href="newItem.php">Add Item</a>
                 <?php endif; ?>
             </div>

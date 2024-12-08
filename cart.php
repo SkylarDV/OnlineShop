@@ -14,7 +14,7 @@
             Order::buyOrder($user_id, $address);
             $msg = "Thank you for your purchase! It will be shipped to you at the soonest convenience.";
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo $e->getMessage() ;
         }
     }
 
@@ -68,9 +68,9 @@
                 <?php $product = Item::getByID($item['product_id']); ?>
                 <div class="productview">
                     <a href="product.php?id=<?php echo $product["ID"]; ?>">
-                        <h2><?php echo $product["title"] ?></h2> 
-                        <img src="<?php echo $product["img"] ?>" alt="">
-                        <h3><?php echo "€ ".$product["price"] ?></h3>
+                        <h2><?php echo htmlspecialchars($product["title"])  ?></h2> 
+                        <img src="<?php echo htmlspecialchars($product["img"])  ?>" alt="">
+                        <h3><?php echo "€ ".htmlspecialchars($product["price"])?></h3>
                     </a>
                     <form method="POST">
                         <button value="<?php echo $product["ID"]?>" class="delbtn" type="submit" name="delete">Delete From Cart</button>

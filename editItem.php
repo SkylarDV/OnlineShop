@@ -43,7 +43,7 @@
             <h2>Edit the product</h2>
             <div>
                 <label for="title">Product Name</label>
-                <p>Was: <?php echo $product["title"] ?></p>
+                <p>Was: <?php echo htmlspecialchars($product["title"])  ?></p>
                 <input type="text" name="title" id="title">
             </div>
         
@@ -51,7 +51,7 @@
 
             <div>
                 <label for="price">Price</label>
-                <p>Was: <?php echo $product["price"] ?></p>
+                <p>Was: <?php echo htmlspecialchars($product["price"])  ?></p>
                 <input type="float" name="price" id="price">
             </div>
            
@@ -59,7 +59,7 @@
 
             <div>
                 <label for="desc">Description</label>
-                <p>Was: <?php echo $product["description"] ?></p>
+                <p>Was: <?php echo htmlspecialchars($product["description"])  ?></p>
                 <input type="text" name="desc" id="desc">
             </div>
             
@@ -67,7 +67,7 @@
 
 
             <div>
-                <p>Was: </p> <img src="<?php echo $product["img"] ?>" alt="">
+                <p>Was: </p> <img src="<?php echo htmlspecialchars($product["img"])  ?>" alt="">
                 <label for="img">Upload Image</label>
                 <input type="file" name="img" id="img" required>
             </div>
@@ -82,7 +82,7 @@
                     <option value="Katana">Katana</option>
                     <option value="Goodies">Goodies</option>
                 </select>
-                <p>Was: <?php echo $product["category"] ?></p>
+                <p>Was: <?php echo htmlspecialchars($product["category"])  ?></p>
             </div>
             
             <br>
@@ -99,7 +99,7 @@
                     <option value="Manga">Manga</option>
                     <option value="TV Shows">TV Shows</option>
                 </select>
-                <p>Was: <?php echo $product["subcategory"] ?></p>
+                <p>Was: <?php echo htmlspecialchars($product["subcategory"])  ?></p>
             </div>
             
             <br>

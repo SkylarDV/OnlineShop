@@ -73,9 +73,9 @@
                 <?php $product = Item::getByID($item['product_id']); ?>
                 <div class="productview">
                     <a href="product.php?id=<?php echo $product["ID"]; ?>">
-                        <h2> <?php echo $product["title"] ?> <?php echo "€ ".$product["price"] ?> </h2>
-                        <img src="<?php echo $product["img"] ?>" alt="">
-                        <h3><?php echo "€ ".$product["price"] ?></h3>
+                        <h2> <?php echo htmlspecialchars($product["title"])  ?> <?php echo "€ ".$product["price"] ?> </h2>
+                        <img src="<?php echo htmlspecialchars($product["img"])  ?>" alt="">
+                        <h3><?php echo "€ ".htmlspecialchars($product["price"])  ?></h3>
                     </a>
                 </div>
                 
